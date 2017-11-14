@@ -1,3 +1,5 @@
+<?xml version="1.0"?>
+
 <launch>
   <!-- configure the transform for hokuyo -->
   <node pkg="tf" type="static_transform_publisher" name="front_hokuyo_frame" 

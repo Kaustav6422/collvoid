@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <!-- Run the map server -->
   <node name="map_server" pkg="map_server" type="map_server" args="$(find collvoid_turtlebot)/map/smartlab_arena.yaml" output="screen"/>

@@ -13,6 +13,8 @@ class CreateRunFiles(object):
     circle_size = 0
     center_x = -2.2
     center_y = 2
+    center_x_goal = -2.2
+    center_y_goal = -2
     omni = False
     localization = True
     simulation = True
@@ -155,18 +157,18 @@ class CreateRunFiles(object):
                             cols[
                                 40 + 10 * x]))
 
-    def create_yaml_file(self):
+    def create_yaml_file(self): # GOALS
         with open(self.output_dir + '/params_created.yaml', 'w') as yaml_file:
             angle = 360.0 / self.num_robots
             for x in range(self.num_robots):
                 angle_x = x * angle - 45
-                pos_x = self.circle_size * math.cos(angle_x / 360 * 2 * math.pi)
-                pos_y = self.circle_size * math.sin(angle_x / 360 * 2 * math.pi)
+                pos_x = self.circle_size * 0.5 * math.cos(angle_x / 360 * 2 * math.pi) # Modified
+                pos_y = self.circle_size * 0.5 * math.sin(angle_x / 360 * 2 * math.pi) # Modified
 
                 yaml_file.write('robot_{0}:\n'.format(x))
                 yaml_file.write('    goals:\n')
-                yaml_file.write("        - x: {0:f}\n".format(self.center_x - pos_x))
-                yaml_file.write('          y: {0:f}\n'.format(self.center_y - pos_y))
+                yaml_file.write("        - x: {0:f}\n".format(self.center_x_goal - pos_x))   # Modified
+                yaml_file.write('          y: {0:f}\n'.format(self.center_y_goal - pos_y))   # Modified
                 yaml_file.write("          ang: {0:f}\n".format(angle_x / 360.0 * 2 * math.pi))
 
     def create_launch_file(self):

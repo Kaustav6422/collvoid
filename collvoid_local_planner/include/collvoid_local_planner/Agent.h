@@ -45,7 +45,7 @@ namespace collvoid{
         //    Agent(){};
         virtual ~Agent(){};
 
-        void computeOrcaVelocity(Vector2 pref_velocity, bool convex);
+        void computeOrcaVelocity(Vector2 pref_velocity, bool convex, float radius);
 
 
         void computeAgentVOs();

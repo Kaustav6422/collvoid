@@ -34,7 +34,7 @@
 
 namespace collvoid {
 
-    void Agent::computeOrcaVelocity(Vector2 pref_velocity, bool convex) {
+    void Agent::computeOrcaVelocity(Vector2 pref_velocity, bool convex, float radius) {   // Modified added radius 
 
         orca_lines_.clear();
         orca_lines_.insert(orca_lines_.end(), additional_orca_lines_.begin(), additional_orca_lines_.end());
@@ -50,23 +50,19 @@ namespace collvoid {
                     timestep = sim_period_;
                 Line line;
                 if (!convex) {
-                    line = createOrcaLine(this, agent.get(), trunc_time_, timestep, left_pref_,
-                                          cur_allowed_error_);
+                    line = createOrcaLine(this, agent.get(), trunc_time_, timestep, left_pref_, cur_allowed_error_);
                 }
                 else {
-                    VO new_agent_vo = createVO(position_, footprint_, velocity_, agent->position_,
-                                               agent->footprint_, agent->velocity_, VOS);
-                    line = createOrcaLine(new_agent_vo.combined_radius, new_agent_vo.relative_position,
-                                          velocity_, agent->velocity_, trunc_time_, timestep, left_pref_,
-                                          cur_allowed_error_, agent->controlled_);
+                    VO new_agent_vo = createVO(position_, footprint_, velocity_, agent->position_, agent->footprint_, agent->velocity_, VOS);
+                    line = createOrcaLine(new_agent_vo.combined_radius, new_agent_vo.relative_position, velocity_, agent->velocity_, trunc_time_, timestep, left_pref_, cur_allowed_error_, agent->controlled_);
                 }
                 orca_lines_.push_back(line);
             }
         }
-        size_t line_fail = linearProgram2(orca_lines_, planner_util_->getCurrentLimits().max_vel_x, pref_velocity, false, new_velocity_);
+        size_t line_fail = linearProgram2(orca_lines_, radius , pref_velocity, false, new_velocity_);
 
         if (line_fail < orca_lines_.size()) {
-            linearProgram3(orca_lines_, num_obst_lines, line_fail, planner_util_->getCurrentLimits().max_vel_x, new_velocity_);
+            linearProgram3(orca_lines_, num_obst_lines, line_fail, radius, new_velocity_);
         }
 
     }

@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
     <!-- Detectors -->
     <include file="$(find collvoid_turtlebot)/launch/includes/laser_detectors.launch"/>

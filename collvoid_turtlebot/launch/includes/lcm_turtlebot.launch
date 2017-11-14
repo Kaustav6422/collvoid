@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
   <node pkg="collvoid_turtlebot" type="lcm_ros_relay.py" name="position_share" output="screen"> 
     <param name='module_type' value='transceiver'/>

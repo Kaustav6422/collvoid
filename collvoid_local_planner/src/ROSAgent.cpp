@@ -623,7 +623,7 @@ namespace collvoid {
 
 
     void ROSAgent::computeOrcaVelocity(Vector2 pref_velocity) {
-        ((Agent *) this)->computeOrcaVelocity(pref_velocity, use_polygon_footprint_);
+        ((Agent *) this)->computeOrcaVelocity(pref_velocity, use_polygon_footprint_, planner_util_->getCurrentLimits().max_vel_x);
 
         // publish calcuated speed and orca_lines
         publishHoloSpeed(position_, new_velocity_, global_frame_, name_space_, speed_pub_);
